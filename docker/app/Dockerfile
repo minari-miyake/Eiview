@@ -4,9 +4,9 @@ FROM php:8.3-fpm
 
 ENV TZ Asia/Tokyo
 
-# Node.jsとnpmをコピー
-COPY --from=node /usr/local/bin/node /usr/local/bin/node
+# prepare npm
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
 RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 
 RUN apt-get update && \
