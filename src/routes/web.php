@@ -4,9 +4,16 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MypageController;
+
+Route::get('/mypage', [MypageController::class, 'index'])->name('mypage.index');
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mypage', [MypageController::class, 'index'])->name('mypage.index');
 });
 
 Route::get('/dashboard', function () {
