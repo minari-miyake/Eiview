@@ -3,7 +3,7 @@ const movies = Array.from({ length: 50 }, (_, i) => {
     return {
       id: 1,
       title: "劇場版『名探偵コナン 隻眼の残像』",
-      image: "images/conan.png", // ← ローカル画像
+      image: "https://earthcinemas.co.jp/wp-content/uploads/c70ab39c3ef0c66f.jpg", // ← ローカル画像
       averageRating: 4.8,
     };
   }

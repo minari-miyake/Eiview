@@ -12,13 +12,14 @@ function renderMovies() {
     const stars = "★".repeat(Math.round(movie.averageRating)) + "☆".repeat(5 - Math.round(movie.averageRating));
 
     const movieCard = document.createElement("div");
-    movieCard.className = "bg-white rounded shadow hover:shadow-lg transition p-4";
+    movieCard.className = "bg-white rounded shadow hover:shadow-lg transition p-4 w-full text-center";
 
     movieCard.innerHTML = `
-      <h2 class="text-lg font-bold mb-2">${movie.title}</h2>
-      <img src="${movie.image}" alt="${movie.title}" class="w-full h-auto mb-2 rounded">
-      <p class="text-yellow-500">${stars} <span class="text-sm text-gray-600">(${movie.averageRating})</span></p>
-    `;
+       <h2 class="text-xl font-extrabold text-center mb-2">${movie.title}</h2>
+       <img src="${movie.image}" alt="${movie.title}" class="w-full h-auto mb-2 rounded">
+  <p class="text-yellow-500 text-center">${stars} <span class="text-sm text-gray-600">(${movie.averageRating})</span></p>
+`;
+
 
     container.appendChild(movieCard);
   });
