@@ -22,3 +22,6 @@ Route::middleware('auth')->group(function () {
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 require __DIR__.'/auth.php';
+
+
+
