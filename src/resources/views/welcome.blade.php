@@ -1,46 +1,55 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eiview - 映画館レビュー</title>
-    @vite('resources/css/app.css')
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eiview - 映画館レビュー</title>
+  @vite('resources/css/app.css')
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-    <!-- Hero セクション -->
-    <section class="text-center py-16 bg-gradient-to-r from-indigo-500 to-purple-600 text-white bg-cover bg-center" style="background-image: url('cinema_screen01-300x200.png');">
-        <h1 class="text-4xl font-bold mb-4">映画館レビューを、もっと楽しく。</h1>
-        <p class="text-lg mb-6">あなたの映画体験をシェアしよう！</p>
+  <section class="min-h-screen flex flex-col justify-center items-center 
+                 bg-gradient-to-br from-blue-300 via-cyan-200 to-teal-200 
+                 text-center px-6 sm:px-10 md:px-20 lg:px-40 py-20 shadow-lg">
 
-        <div class="flex justify-center space-x-4">
-            <a href="/register">
-                <button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
-                    新規登録
-                </button>
-            </a>
-            <a href="/login">
-                <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-                    ログイン
-                </button>
-            </a>
-        </div>
-    </section>
+    <!-- ロゴ・ブランド名 -->
+    <h1 class="text-[clamp(3rem,8vw,6rem)] font-black tracking-tight text-blue-900 drop-shadow-xl mb-4 select-none">
+      Eiview
+    </h1>
 
-    <!-- 検索フォーム -->
-    <section class="max-w-4xl mx-auto mt-10 px-4">
-        <form method="GET" action="/search" class="flex gap-4">
-            <input type="text" name="query" placeholder="映画館名・地域で検索"
-                   class="w-full p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-            <button type="submit"
-                    class="bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700">検索</button>
-        </form>
-    </section>
+    <!-- キャッチコピー -->
+    <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-semibold text-blue-800 mb-6 leading-tight">
+      映画レビューを、もっとスマートに。
+    </h2>
 
-    <!-- フッター -->
-    <footer class="mt-20 bg-gray-800 text-white py-6 text-center">
-        <p>&copy; 2025 Eiview. All rights reserved.</p>
-    </footer>
+    <!-- アプリ説明文 -->
+    <p class="max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed text-gray-700 mb-10 px-4">
+      映画を見た体験や感想をシェアしませんか？<br>
+      <span class="font-semibold">Eiview</span> は映画好きのためのレビュー共有アプリです。<br>
+      あなたの思い出を語り合い、感動をもっと広げましょう。
+    </p>
+
+    <!-- ボタン -->
+    <div class="flex flex-wrap justify-center gap-6">
+      <a href="{{ route('register') }}">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-md transition duration-200 hover:scale-105"
+                aria-label="新規登録">
+          新規登録
+        </button>
+      </a>
+      <a href="{{ route('login') }}">
+        <button class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-8 rounded-full shadow-md transition duration-200 hover:scale-105"
+                aria-label="ログイン">
+          ログイン
+        </button>
+      </a>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="mt-16 bg-gray-200 text-gray-600 py-6 text-center text-sm select-none">
+    <p>&copy; 2025 Eiview. All rights reserved.</p>
+  </footer>
 
 </body>
 </html>
