@@ -41,3 +41,6 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
 
 // BreezeやJetstreamなどが用意する認証関連ルートを読み込み
 require __DIR__.'/auth.php';
+
+
+
