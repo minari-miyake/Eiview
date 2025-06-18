@@ -14,12 +14,19 @@ Route::get('/', function () {
 
 // ユーザーのダッシュボード（ログイン・メール認証済み）
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    try {
+        $movies = \App\Models\Movie::latest()->take(6)->get();
+    } catch (\Exception $e) {
+        // テーブルが存在しない場合は空のコレクションを返す
+        $movies = collect([]);
+    }
+    return view('dashboard', compact('movies'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // ユーザー認証が必要なプロフィール関連
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

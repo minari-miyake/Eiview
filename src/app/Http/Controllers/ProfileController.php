@@ -12,6 +12,16 @@ use Illuminate\View\View;
 class ProfileController extends Controller
 {
     /**
+     * Display the user's profile.
+     */
+    public function show(Request $request): View
+    {
+        return view('profile.show', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    /**
      * Display the user's profile form.
      */
     public function edit(Request $request): View
@@ -26,13 +36,39 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
+        $validated = $request->validated();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        // アイコンファイルのアップロード処理
+        if ($request->hasFile('icon')) {
+            // アップロードディレクトリを作成
+            $uploadDir = public_path('uploads/icons');
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+
+            // 古いアイコンファイルを削除
+            if ($user->icon_url && file_exists(public_path($user->icon_url))) {
+                unlink(public_path($user->icon_url));
+            }
+
+            // 新しいアイコンファイルを保存
+            $iconFile = $request->file('icon');
+            $iconName = time() . '_' . $iconFile->getClientOriginalName();
+            $iconFile->move($uploadDir, $iconName);
+            $validated['icon_url'] = '/uploads/icons/' . $iconName;
         }
 
-        $request->user()->save();
+        // iconフィールドを除外（ファイルなので）
+        unset($validated['icon']);
+
+        $user->fill($validated);
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

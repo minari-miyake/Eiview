@@ -1,8 +1,8 @@
-<section class="min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 flex items-center justify-center">
-    <div class="bg-white p-10 rounded-3xl shadow-2xl transform transition duration-500 hover:scale-105 w-full max-w-4xl">
-        <header class="mb-6 text-center">
-            <h2 class="text-6xl font-extrabold text-gray-800 font-serif">プロフィール編集</h2>
-            <p class="mt-2 text-lg text-gray-600 font-light">
+<section>
+    <div class="bg-white p-8 rounded-lg shadow-lg">
+        <header class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">プロフィール編集</h2>
+            <p class="mt-2 text-sm text-gray-600">
                 アカウント情報（メールアドレス・年齢・性別）を更新できます。
             </p>
         </header>
