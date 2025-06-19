@@ -1,0 +1,4 @@
+instructions:
+  - name: 共通ルール
+    description: 日本語で回答すること dockerコマンドは自走せず、ユーザーに実行を依頼すること
+    content_file: common_rules.md
