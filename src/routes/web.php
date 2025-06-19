@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\MovieController;
+use App\Http\Controllers\AdminDashboardController;
+
+
 
 // トップページ
 Route::get('/', function () {
@@ -40,14 +44,16 @@ Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('adm
 // 管理者ログイン処理
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
 
-// 管理者ダッシュボード（ログイン必須）
-// ※必要ならadmin専用ミドルウェアでさらに制限可能
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
-    ->middleware('auth')
-    ->name('admin.dashboard');
+//管理者映用画一覧//
+Route::get('/admin/dashboard', [MovieController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin/movie/create', [MovieController::class, 'create'])->name('admin.movie.create');
+Route::get('/admin/movie/{id}', [AdminDashboardController::class, 'show'])->name('admin.movie.show');
+Route::post('/admin/movie', [MovieController::class, 'store'])->name('admin.movie.store');
+
+Route::get('/admin/movie/{id}/edit', [MovieController::class, 'edit'])->name('admin.movie.edit');
+Route::put('/admin/movie/{id}', [MovieController::class, 'update'])->name('admin.movie.update');
+Route::delete('/admin/movie/{id}', [MovieController::class, 'destroy'])->name('admin.movie.destroy');
+
 
 // BreezeやJetstreamなどが用意する認証関連ルートを読み込み
 require __DIR__.'/auth.php';
-
-
-

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Movie;
+
 
 class AdminController extends Controller
 {
@@ -51,8 +53,10 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
-        // このビューを resources/views/admin/dashboard.blade.php に作成してください
-        return view('admin.dashboard');
+        // Movieと関連するreviewsを1ページ20件で取得
+        $movies = Movie::with('reviews')->paginate(20);
+
+        return view('admin.dashboard', compact('movies'));
     }
 
     /**
@@ -63,4 +67,6 @@ class AdminController extends Controller
         Auth::logout();
         return redirect()->route('admin.login')->with('status', 'ログアウトしました。');
     }
+    
 }
+
