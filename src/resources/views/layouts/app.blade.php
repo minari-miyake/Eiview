@@ -15,12 +15,12 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gradient-to-r from-blue-500 via-yellow-500 to-green-500">
+        <div class="min-h-screen bg-gradient-to-r from-blue-500">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-silver shadow">
+                <header class="bg-white shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -29,7 +29,7 @@
 
             <!-- Page Content -->
             <main>
-                 @yield('content')
+                {{ $slot }}
             </main>
         </div>
     </body>
