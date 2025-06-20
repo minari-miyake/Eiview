@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,9 +16,18 @@ class ProfileController extends Controller
      * Display the user's profile.
      */
     public function show(Request $request): View
-    {
+    {   
+         $user = $request->user();
+         
+         $recentReviews = Review::with('movie')
+        ->where('user_id', $user->id)
+        ->orderBy('created_at', 'desc')
+        ->limit(5)
+        ->get();
+
         return view('profile.show', [
-            'user' => $request->user(),
+        'user' => $user,
+        'recentReviews' => $recentReviews,
         ]);
     }
 
