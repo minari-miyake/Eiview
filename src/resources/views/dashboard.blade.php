@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout> //ユーザ側のログイン後ダッシュボード
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <div>
@@ -53,7 +53,7 @@
                     <div class="mt-6">
                         <div class="flex justify-between items-center mb-4">
                             <h4 class="text-xl font-bold text-white">映画一覧</h4>
-                            <a href="{{ route('search') }}" class="text-blue-100 hover:text-white font-medium transition-colors">すべて見る</a>
+                            <a href="{{ route('movies.index') }}" class="text-blue-100 hover:text-white font-medium transition-colors">すべて見る</a>
                         </div>
                         
                         @if(isset($movies) && $movies->count() > 0)
