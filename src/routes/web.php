@@ -7,6 +7,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\MovieController;
+use App\Http\Controllers\User\MovieController as UserMovieController;
 use App\Models\Movie;
 
 // トップページ（公開）
@@ -30,6 +31,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// ユーザー用映画一覧（要ログイン）
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/movies', [UserMovieController::class, 'index'])->name('movies.index');
+    Route::get('/movies/{id}', [UserMovieController::class, 'show'])->name('movies.show'); 
 });
 
 // 映画検索ページ（公開）
