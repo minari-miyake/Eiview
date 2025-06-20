@@ -1,5 +1,4 @@
-@extends('layouts.app') {{-- 共通レイアウトを使う場合 --}}
-@section('content')
+<x-layouts.app>
 <div class="p-6">
     <h1 class="text-2xl font-bold mb-4">🎦管理者用映画一覧</h1>
 
@@ -53,4 +52,5 @@
         {{ $movies->links() }}
     </div>
 </div>
-@endsection
+</x-layouts.app>
+

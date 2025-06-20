@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-layouts.app>
 <div class="max-w-3xl mx-auto p-6">
     <h1 class="text-2xl font-bold mb-6">🎬 映画追加</h1>
 
@@ -29,13 +27,14 @@
         </label>
 
         <label class="flex flex-col">
-    <span class="font-semibold mb-1">演出者（監督）</span>
-    <input type="text" name="casts" value="{{ old('director', $movie->director ?? '') }}" class="border rounded p-2">
-</label>
-          <label class="flex flex-col">
-    <span class="font-semibold mb-1">公式サイトURL</span>
-    <input type="url" name="official_url" value="{{ old('official_url', $movie->official_url ?? '') }}" class="border rounded p-2">
-</label>
+            <span class="font-semibold mb-1">演出者（監督）</span>
+            <input type="text" name="director" value="{{ old('director') }}" class="border rounded p-2">
+        </label>
+
+        <label class="flex flex-col">
+            <span class="font-semibold mb-1">公式サイトURL</span>
+            <input type="url" name="official_url" value="{{ old('official_url') }}" class="border rounded p-2">
+        </label>
 
         <label class="flex flex-col">
             <span class="font-semibold mb-1">画像アップロード</span>
@@ -52,7 +51,7 @@
     </form>
 
     <div class="mt-4 text-right">
-        <a href="{{ route('admin.dashboard') }}" class="text-blue-600 hover:underline">&lt; ダッシュボードに戻る</a>
+        <a href="{{ route('admin.dashboard') }}" class="text-blue-600 hover:underline">&lt; 戻る</a>
     </div>
 </div>
-@endsection
+</x-layouts.app>
