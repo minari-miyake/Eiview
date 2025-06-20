@@ -9,7 +9,7 @@ class Movie extends Model
 {
     use HasFactory; // これを追加
 
-    protected $fillable = ['title','summary','casts','image_url','director', 'official_url'];
+    protected $fillable = ['title','summary','image_url','director', 'official_url'];
 
     public function reviews()
     {
