@@ -12,11 +12,14 @@ return new class extends Migration
    public function up()
 {
     Schema::create('reviews', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('movie_id')->constrained()->onDelete('cascade');
-        $table->unsignedTinyInteger('rating'); // 1〜5
-        $table->timestamps();
-    });
+    $table->id();
+    $table->foreignId('movie_id')->constrained()->onDelete('cascade');
+    $table->foreignId('user_id')->constrained()->onDelete('cascade');
+    $table->tinyInteger('rating'); // 1〜5
+    $table->string('title')->nullable();
+    $table->string('comment', 200)->nullable();
+    $table->timestamps();
+  });
 }
 
 
