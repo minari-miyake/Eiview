@@ -1,6 +1,8 @@
-<x-layouts.app>
+@extends('layouts.admin')
+
+@section('content')
 <div class="p-6">
-    <h1 class="text-2xl font-bold mb-4">🎦管理者用映画一覧</h1>
+    <h1 class="text-2xl font-bold mb-4">🎦 管理者用映画一覧</h1>
 
     <div class="mb-4 flex justify-end">
         <a href="{{ route('admin.movie.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
@@ -10,7 +12,7 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         @forelse($movies as $movie)
-            <div class="border rounded-lg p-4 shadow-md text-center">
+            <div class="border rounded-lg p-4 shadow-md text-center bg-white">
                 <a href="{{ route('admin.movie.show', $movie->id) }}">
                     <h2 class="text-xl font-semibold mb-2">{{ $movie->title }}</h2>
                     @if ($movie->image_url)
@@ -52,5 +54,5 @@
         {{ $movies->links() }}
     </div>
 </div>
-</x-layouts.app>
+@endsection
 
