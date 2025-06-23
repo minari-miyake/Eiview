@@ -52,22 +52,29 @@
                 @endif
 
                 {{-- レビュー --}}
-                <h2 class="text-lg font-semibold mt-6 mb-3">レビュー一覧</h2>
-                @if($movie->reviews->isEmpty())
-                    <p class="text-sm text-gray-600">レビューはまだありません。</p>
-                @else
-                    <ul class="space-y-4">
-                        @foreach($movie->reviews as $review)
-                            <li class="bg-white border rounded p-4 shadow">
-                                <div class="flex justify-between items-center mb-1">
-                                    <span class="text-yellow-500 font-semibold text-sm">評価: {{ $review->rating }}</span>
-                                    <span class="text-xs text-gray-500">{{ $review->created_at->format('Y-m-d') }}</span>
-                                </div>
-                                <p class="text-sm text-gray-800">{{ $review->comment ?? '（コメントなし）' }}</p>
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
+                <h2 class="text-lg font-semibold mt-6 mb-3">
+                    レビュー一覧
+                    <button onclick="document.getElementById('review-form').classList.toggle('hidden')"
+                       class="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
+                       レビューを書く
+                    </button>
+                </h2>
+
+                {{-- レビュー投稿フォーム（reviews.formを@include） --}}
+                @include('reviews.form', ['movie' => $movie])
+
+                {{-- レビューリスト --}}
+                <div id="review-list">
+                    @foreach ($movie->reviews->sortByDesc('created_at') as $review)
+                        <div class="review-item border-t py-4" data-review-id="{{ $review->id }}">
+                            <div class="font-bold">{{ $review->user->name }} さん - ★{{ $review->rating }}</div>
+                            @if ($review->title)
+                                <div class="text-lg font-semibold">{{ $review->title }}</div>
+                            @endif
+                            <p>{{ $review->comment }}</p>
+                        </div>
+                    @endforeach
+                </div>
 
                 {{-- 戻る --}}
                 <div class="mt-6 text-right">
@@ -76,5 +83,88 @@
             </div>
         </div>
     </div>
-</x-app-layout>
 
+    {{-- JS：星評価クリックとレビュー投稿の非同期処理 --}}
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 星評価クリック処理（reviews.form側の星に対応）
+        const stars = document.querySelectorAll('#star-rating svg');
+        const ratingInput = document.getElementById('rating');
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const value = parseInt(star.dataset.value);
+                ratingInput.value = value;
+
+                stars.forEach(s => {
+                    const v = parseInt(s.dataset.value);
+                    if (v <= value) {
+                        s.classList.add('text-yellow-400');
+                        s.classList.remove('text-gray-300');
+                    } else {
+                        s.classList.add('text-gray-300');
+                        s.classList.remove('text-yellow-400');
+                    }
+                });
+            });
+        });
+
+        // フォーム送信の非同期処理
+        const form = document.getElementById('review-form');
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value,
+                        'Accept': 'application/json'
+                    },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const review = data.review;
+
+                    // 既に同じIDのレビューがないかチェック
+                    if (!document.querySelector(`#review-list .review-item[data-review-id="${review.id}"]`)) {
+                        const reviewHtml = `
+                            <div class="review-item border-t py-4" data-review-id="${review.id}">
+                                <div class="font-bold">${review.user.name} さん - ★${review.rating}</div>
+                                ${review.title ? `<div class="text-lg font-semibold">${review.title}</div>` : ''}
+                                <p>${review.comment}</p>
+                            </div>
+                        `;
+                        document.getElementById('review-list').insertAdjacentHTML('afterbegin', reviewHtml);
+                    }
+
+                    // フォームリセット、星評価リセット、非表示
+                    form.reset();
+                    ratingInput.value = '';
+                    stars.forEach(s => {
+                        s.classList.add('text-gray-300');
+                        s.classList.remove('text-yellow-400');
+                    });
+                    form.classList.add('hidden');
+                } else {
+                    const errorData = await response.json().catch(() => null);
+                    alert('投稿に失敗しました: ' + (errorData?.message || '不明なエラー'));
+                    console.error('投稿エラー:', errorData);
+                }
+            } catch (error) {
+                alert('通信エラーが発生しました');
+                console.error(error);
+            }
+        });
+    });
+    </script>
+</x-app-layout>

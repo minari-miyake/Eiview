@@ -35,7 +35,7 @@
       <span class="font-semibold">Eiview</span> は映画好きのためのレビュー共有アプリです。<br>
       あなたの思い出を語り合い、感動をもっと広げましょう。
     </p>
-
+    
     <div class="flex flex-wrap justify-center gap-6">
       <a href="{{ route('register') }}">
         <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-md transition duration-200 hover:scale-105">
@@ -49,11 +49,11 @@
       </a>
     </div>
   </section>
-
+ 
   <!-- フッター -->
   <footer class="mt-16 bg-gray-200 text-gray-600 py-6 text-center text-sm select-none">
     <p>&copy; 2025 Eiview. All rights reserved.</p>
   </footer>
-
+ 
 </body>
 </html>
