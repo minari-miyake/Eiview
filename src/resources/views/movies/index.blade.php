@@ -2,25 +2,28 @@
     <div class="p-6">
         <h1 class="text-2xl font-bold mb-6">🎬 映画一覧</h1>
 
-        {{-- 検索フォーム（中央寄せ） --}}
-        <div class="flex justify-center mb-8">
-            <form method="GET" action="{{ route('movies.index') }}" class="flex flex-wrap gap-2 items-center">
+        {{-- 🔍 検索フォーム --}}
+        <div class="mb-12">
+            <form method="GET" action="{{ route('movies.index') }}"
+                  class="w-full max-w-xl mx-auto flex items-center border border-gray-300 rounded-full overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-blue-500 transition">
+                
                 <input
                     type="text"
                     name="keyword"
                     value="{{ old('keyword', $keyword ?? '') }}"
-                    placeholder="タイトルで検索"
-                    class="border border-gray-300 rounded px-4 py-2 w-full sm:w-64"
+                    placeholder="作品名を検索"
+                    class="flex-grow px-5 py-3 text-gray-700 placeholder-gray-400 focus:outline-none"
                 />
                 <button
                     type="submit"
-                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+                    class="bg-white hover:bg-blue-50 px-5 py-3 text-blue-600 font-semibold text-sm border-l border-gray-300"
                 >
                     検索
                 </button>
             </form>
         </div>
 
+        {{-- 映画リスト --}}
         @if ($movies->isEmpty())
             <p class="text-gray-500 text-center">映画が見つかりませんでした。</p>
         @else
@@ -40,6 +43,7 @@
                             @endif
                         </a>
 
+                        {{-- 星評価 --}}
                         <div class="flex justify-center items-center space-x-2 mt-2">
                             @for($i = 1; $i <= 5; $i++)
                                 <svg class="w-5 h-5 {{ $i <= round($movie->averageRating()) ? 'text-yellow-400' : 'text-gray-300' }}"
@@ -55,6 +59,7 @@
                 @endforeach
             </div>
 
+            {{-- ページネーション --}}
             <div class="mt-6 flex justify-center">
                 {{ $movies->links() }}
             </div>

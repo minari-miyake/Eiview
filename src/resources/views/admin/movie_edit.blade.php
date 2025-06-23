@@ -1,4 +1,8 @@
-<x-layouts.app>
+@extends('layouts.admin')
+
+@section('title', '映画編集')
+
+@section('content')
 <div class="p-6 max-w-3xl mx-auto">
     <h1 class="text-2xl font-bold mb-4">🎬 映画編集</h1>
 
@@ -36,4 +40,4 @@
         </div>
     </form>
 </div>
-</x-layouts.app>
+@endsection

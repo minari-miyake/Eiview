@@ -1,5 +1,9 @@
-<x-layouts.app>
-<div class="max-w-3xl mx-auto p-6">
+@extends('layouts.admin')
+
+@section('title', '映画追加')
+
+@section('content')
+<div>
     <h1 class="text-2xl font-bold mb-6">🎬 映画追加</h1>
 
     @if ($errors->any())
@@ -54,4 +58,4 @@
         <a href="{{ route('admin.dashboard') }}" class="text-blue-600 hover:underline">&lt; 戻る</a>
     </div>
 </div>
-</x-layouts.app>
+@endsection
