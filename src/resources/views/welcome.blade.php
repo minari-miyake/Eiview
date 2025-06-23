@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> //ユーザ側のスタートサイト
 <html lang="ja">
 <head>
   <meta charset="UTF-8">

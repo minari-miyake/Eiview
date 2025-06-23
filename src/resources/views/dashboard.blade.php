@@ -1,28 +1,5 @@
-<x-app-layout>
-    <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <div>
-                <h2 class="font-bold text-2xl text-gray-800 leading-tight">
-                    
-                </h2>
-                <p class="text-gray-600 mt-1">映画の世界へようこそ</p>
-            </div>
-            <div class="flex space-x-3">
-                <a href="{{ route('search') }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                    映画を探す
-                </a>
-                <a href="{{ route('profile.show') }}" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                    プロフィール
-                </a>
-            </div>
-        </div>
-    </x-slot>
+<x-app-layout> //ユーザ側のログイン後ダッシュボード
+   
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -53,7 +30,7 @@
                     <div class="mt-6">
                         <div class="flex justify-between items-center mb-4">
                             <h4 class="text-xl font-bold text-white">映画一覧</h4>
-                            <a href="{{ route('search') }}" class="text-blue-100 hover:text-white font-medium transition-colors">すべて見る</a>
+                            <a href="{{ route('movies.index') }}" class="text-blue-100 hover:text-white font-medium transition-colors">すべて見る</a>
                         </div>
                         
                         @if(isset($movies) && $movies->count() > 0)
@@ -262,4 +239,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-app-layout>　
