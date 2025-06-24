@@ -306,4 +306,4 @@
                   <p class="text-gray-600">評価付きの映画が登録されていません。</p>                                   
               </div>                                                                                                 
           @endif                                      
-</x-app-layout>　
+</x-app-layout>

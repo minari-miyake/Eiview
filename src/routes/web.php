@@ -78,5 +78,4 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 });
  
 // Breeze / Jetstream の認証ルート
-require __DIR__.'/auth.php';
- 
+require __DIR__.'/auth.php'; 
