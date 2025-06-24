@@ -65,7 +65,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     // 管理者ログアウト
     Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
- 
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/reviews', [UserReviewController::class, 'store'])->name('reviews.store');
 });
