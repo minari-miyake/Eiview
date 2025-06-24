@@ -11,7 +11,6 @@ use App\Http\Controllers\User\MovieController as UserMovieController;
 use App\Models\Movie;
 use App\Http\Controllers\User\ReviewController as UserReviewController;
 
-
 // トップページ（公開）
 Route::get('/', function () {
     return view('welcome');
