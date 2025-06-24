@@ -1,5 +1,3 @@
-{{-- resources/views/admin/movies/show.blade.php など --}}
-
 @extends('layouts.admin')
 
 @section('title', $movie->title . ' - 映画詳細')
@@ -56,31 +54,32 @@
             @else
                 <p class="text-sm text-gray-500 italic mb-4">公式サイトは登録されていません。</p>
             @endif
+        </div>
+    </div>
 
-            {{-- 5. レビュー一覧 --}}
-            <h2 class="text-lg font-semibold mt-6 mb-3">レビュー一覧</h2>
-            @if($movie->reviews->isEmpty())
-                <p class="text-sm text-gray-600">レビューはまだありません。</p>
-            @else
-                <ul class="space-y-4 max-h-96 overflow-auto">
-                    @foreach($movie->reviews as $review)
-                        <li class="bg-white border rounded p-4 shadow">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="text-yellow-500 text-sm font-semibold">評価: {{ $review->rating }}</span>
-                                <span class="text-xs text-gray-500">{{ $review->created_at->format('Y-m-d') }}</span>
-                            </div>
-                            <p class="text-sm text-gray-800">{{ $review->comment ?? '（コメントなし）' }}</p>
-                        </li>
-                    @endforeach
-                </ul>
-            @endif
+    {{-- ↓↓↓ レビュー部分を下に配置 ↓↓↓ --}}
+    <div class="mt-10">
+        <h2 class="text-lg font-semibold mb-3">レビュー一覧</h2>
+        @if($movie->reviews->isEmpty())
+            <p class="text-sm text-gray-600">レビューはまだありません。</p>
+        @else
+            <ul class="space-y-4 max-h-96 overflow-auto">
+                @foreach($movie->reviews as $review)
+                    <li class="bg-white border rounded p-4 shadow">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-yellow-500 text-sm font-semibold">評価: {{ $review->rating }}</span>
+                            <span class="text-xs text-gray-500">{{ $review->created_at->format('Y-m-d') }}</span>
+                        </div>
+                        <p class="text-sm text-gray-800">{{ $review->comment ?? '（コメントなし）' }}</p>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
 
-            {{-- 戻る --}}
-            <div class="mt-6 text-right">
-                <a href="{{ route('admin.dashboard') }}" class="text-blue-600 hover:underline">&lt; 映画一覧に戻る</a>
-            </div>
+        {{-- 戻る --}}
+        <div class="mt-6 text-right">
+            <a href="{{ route('admin.dashboard') }}" class="text-blue-600 hover:underline">&lt; 映画一覧に戻る</a>
         </div>
     </div>
 </div>
 @endsection
-
