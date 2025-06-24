@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\User\MovieController as UserMovieController;
 use App\Models\Movie;
+use App\Http\Controllers\User\ReviewController as UserReviewController;
 
 
 // トップページ（公開）
