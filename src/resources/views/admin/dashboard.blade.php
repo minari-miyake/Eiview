@@ -26,8 +26,10 @@
 
     {{-- 映画追加ボタン --}}
     <div class="mb-6 flex justify-end">
-        <a href="{{ route('admin.movie.create') }}" class="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 shadow">
-            ＋ 映画追加
+        <a href="{{ route('admin.movie.create') }}"
+           class="inline-flex items-center space-x-2 px-6 py-3 bg-blue-600 text-white text-base font-semibold rounded-full shadow hover:bg-blue-700 transition duration-200">
+            <span class="text-xl">＋</span>
+            <span>映画を追加</span>
         </a>
     </div>
 
@@ -36,7 +38,9 @@
         @forelse($movies as $movie)
             <div class="border rounded-lg p-4 shadow text-center bg-white">
                 <a href="{{ route('admin.movie.show', $movie->id) }}">
-                    <h2 class="text-lg font-semibold mb-2 truncate">{{ $movie->title }}</h2>
+                    <h2 class="text-lg font-semibold mb-2 h-12 overflow-hidden break-words">
+                        {{ $movie->title }}
+                    </h2>
                     @if ($movie->image_url)
                         <img
                             src="{{ asset($movie->image_url) }}"
@@ -85,3 +89,4 @@
     </div>
 </div>
 @endsection
+
