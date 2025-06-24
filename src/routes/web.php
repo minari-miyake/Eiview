@@ -72,3 +72,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
  
 // Breeze / Jetstream の認証ルート
 require __DIR__.'/auth.php';
+ 
