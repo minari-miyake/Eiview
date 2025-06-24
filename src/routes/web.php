@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\User\MovieController as UserMovieController;
+use App\Http\Controllers\User\ReviewController as UserReviewController;
 use App\Models\Movie;
 
 
