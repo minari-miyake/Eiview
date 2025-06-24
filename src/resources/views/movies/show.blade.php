@@ -1,8 +1,9 @@
 <x-app-layout>
     <div class="p-6 max-w-6xl mx-auto">
-        {{-- 横並び：画像 + 詳細 --}}
-        <div class="flex flex-col md:flex-row gap-6">
-            {{-- 左：画像 --}}
+        {{-- 映画情報カード（背景と枠で囲み） --}}
+        <div class="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+           <div class="flex flex-col md:flex-row gap-6">
+                {{-- 左：画像 --}}
             <div class="md:w-1/3">
                 @if ($movie->image_url)
                     <img src="{{ asset($movie->image_url) }}" alt="{{ $movie->title }}"
@@ -53,6 +54,7 @@
                 @endif
             </div>
         </div>
+    </div>
 
          {{-- ↓↓↓ レビュー一覧と投稿フォームを画像＋詳細の下に移動 ↓↓↓ --}}
         <div class="mt-10">
