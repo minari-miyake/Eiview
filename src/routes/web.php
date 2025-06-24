@@ -79,6 +79,5 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     // レビュー削除
     Route::delete('/reviews/{review}', [UserReviewController::class, 'destroy'])->name('reviews.destroy');
 });
- 
 // Breeze / Jetstream の認証ルート
 require __DIR__.'/auth.php';
