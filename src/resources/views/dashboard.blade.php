@@ -1,6 +1,6 @@
-<x-app-layout> //ユーザ側のログイン後ダッシュボード
+<x-app-layout> 
    
-
+ 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- ヒーローセクション -->
@@ -8,7 +8,7 @@
                 <!-- 背景パターン -->
                 <div class="absolute inset-0 bg-black opacity-20"></div>
                 <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-                
+               
                 <div class="relative p-8 text-white">
                     <div class="flex items-center justify-between mb-6">
                         <div>
@@ -25,14 +25,14 @@
                             </div>
                         </div>
                     </div>
-                    
+                   
                     <!-- 映画一覧セクション -->
                     <div class="mt-6">
                         <div class="flex justify-between items-center mb-4">
                             <h4 class="text-xl font-bold text-white">映画一覧</h4>
                             <a href="{{ route('movies.index') }}" class="text-blue-100 hover:text-white font-medium transition-colors">すべて見る</a>
                         </div>
-                        
+                       
                         @if(isset($movies) && $movies->count() > 0)
                             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                                 @foreach($movies as $movie)
@@ -40,8 +40,8 @@
                                         <!-- ポスター画像 -->
                                         <div class="aspect-[2/3] bg-black bg-opacity-30 relative overflow-hidden">
                                             @if($movie->poster_url)
-                                                <img src="{{ $movie->poster_url }}" 
-                                                     alt="{{ $movie->title }}" 
+                                                <img src="{{ $movie->poster_url }}"
+                                                     alt="{{ $movie->title }}"
                                                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                                             @else
                                                 <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-600 to-gray-800">
@@ -50,14 +50,14 @@
                                                     </svg>
                                                 </div>
                                             @endif
-                                            
+                                           
                                             <!-- 評価バッジ -->
                                             @if($movie->rating)
                                                 <div class="absolute top-3 right-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
                                                     ⭐ {{ $movie->rating }}
                                                 </div>
                                             @endif
-                                            
+                                           
                                             <!-- ホバーオーバーレイ -->
                                             <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                                                 <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -67,7 +67,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+                                       
                                         <!-- 映画情報 -->
                                         <div class="p-4">
                                             <h5 class="font-bold text-white text-sm mb-2 line-clamp-2 group-hover:text-blue-100 transition-colors duration-200">{{ $movie->title }}</h5>
@@ -91,7 +91,7 @@
                     </div>
                 </div>
             </div>
-
+ 
             <!-- 統計情報 -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition-all duration-300 group">
@@ -110,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-
+ 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition-all duration-300 group">
                     <div class="p-6">
                         <div class="flex items-center justify-between">
@@ -127,7 +127,7 @@
                         </div>
                     </div>
                 </div>
-
+ 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition-all duration-300 group">
                     <div class="p-6">
                         <div class="flex items-center justify-between">
@@ -145,7 +145,7 @@
                     </div>
                 </div>
             </div>
-
+ 
             <!-- クイックアクション -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-8">
                 <div class="p-8">
@@ -168,7 +168,7 @@
                             <h4 class="text-blue-900 font-bold text-lg mb-1">映画を検索</h4>
                             <p class="text-blue-700 text-sm">お気に入りの映画を見つけよう</p>
                         </a>
-                        
+                       
                         <a href="{{ route('profile.show') }}" class="group bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl hover:from-green-100 hover:to-green-200 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg border border-green-200">
                             <div class="flex items-center justify-between mb-3">
                                 <div class="bg-green-500 p-3 rounded-xl group-hover:scale-110 transition-transform duration-300">
@@ -183,7 +183,7 @@
                             <h4 class="text-green-900 font-bold text-lg mb-1">プロフィール</h4>
                             <p class="text-green-700 text-sm">あなたの情報を確認・編集</p>
                         </a>
-                        
+                       
                         <div class="group bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border border-purple-200 opacity-60">
                             <div class="flex items-center justify-between mb-3">
                                 <div class="bg-purple-400 p-3 rounded-xl">
@@ -196,7 +196,7 @@
                             <h4 class="text-purple-900 font-bold text-lg mb-1">レビューを書く</h4>
                             <p class="text-purple-700 text-sm">映画の感想をシェア</p>
                         </div>
-                        
+                       
                         <div class="group bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border border-orange-200 opacity-60">
                             <div class="flex items-center justify-between mb-3">
                                 <div class="bg-orange-400 p-3 rounded-xl">

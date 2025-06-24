@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="p-6">
         <h1 class="text-2xl font-bold mb-6">🎬 映画一覧</h1>
-
+ 
         {{-- 🔍 検索フォーム --}}
         <div class="mb-12">
             <form method="GET" action="{{ route('movies.index') }}"
@@ -21,7 +21,7 @@
                 </button>
             </form>
         </div>
-
+ 
         {{-- 映画リスト --}}
         @if ($movies->isEmpty())
             <p class="text-gray-500 text-center">映画が見つかりませんでした。</p>
@@ -43,7 +43,7 @@
                                 <div class="text-sm text-gray-500 h-56 flex items-center justify-center">画像なし</div>
                             @endif
                         </a>
-
+ 
                         {{-- 星評価 --}}
                         <div class="flex justify-center items-center space-x-2 mt-2">
                             @for($i = 1; $i <= 5; $i++)
@@ -59,7 +59,7 @@
                     </div>
                 @endforeach
             </div>
-
+ 
             {{-- ページネーション --}}
             <div class="mt-6 flex justify-center">
                 {{ $movies->links() }}
