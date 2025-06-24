@@ -1,9 +1,9 @@
 @extends('layouts.admin')
-
+ 
 @section('content')
 <div class="p-6">
     <h1 class="text-2xl font-bold mb-6">🎦 管理者用映画一覧</h1>
-
+ 
     {{-- 検索フォーム --}}
     <div class="mb-8">
         <form method="GET" action="{{ route('admin.dashboard') }}"
@@ -23,20 +23,24 @@
             </button>
         </form>
     </div>
-
+ 
     {{-- 映画追加ボタン --}}
     <div class="mb-6 flex justify-end">
-        <a href="{{ route('admin.movie.create') }}" class="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 shadow">
-            ＋ 映画追加
+        <a href="{{ route('admin.movie.create') }}"
+           class="inline-flex items-center space-x-2 px-6 py-3 bg-blue-600 text-white text-base font-semibold rounded-full shadow hover:bg-blue-700 transition duration-200">
+            <span class="text-xl">＋</span>
+            <span>映画を追加</span>
         </a>
     </div>
-
+ 
     {{-- 映画一覧 --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         @forelse($movies as $movie)
             <div class="border rounded-lg p-4 shadow text-center bg-white">
                 <a href="{{ route('admin.movie.show', $movie->id) }}">
-                    <h2 class="text-lg font-semibold mb-2 truncate">{{ $movie->title }}</h2>
+                    <h2 class="text-lg font-semibold mb-2 h-12 overflow-hidden break-words">
+                        {{ $movie->title }}
+                    </h2>
                     @if ($movie->image_url)
                         <img
                             src="{{ asset($movie->image_url) }}"
@@ -47,7 +51,7 @@
                         <div class="text-sm text-gray-500">画像なし</div>
                     @endif
                 </a>
-
+ 
                 {{-- 星評価 --}}
                 <div class="flex justify-center items-center space-x-1 mb-2">
                     @for($i = 1; $i <= 5; $i++)
@@ -62,11 +66,11 @@
                         {{ number_format($movie->averageRating(), 1) }}
                     </span>
                 </div>
-
+ 
                 {{-- 編集・削除 --}}
                 <div class="flex justify-center space-x-2 mt-2">
                     <a href="{{ route('admin.movie.edit', $movie->id) }}" class="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600">編集</a>
-
+ 
                     <form action="{{ route('admin.movie.destroy', $movie->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？')">
                         @csrf
                         @method('DELETE')
@@ -78,7 +82,7 @@
             <p class="col-span-3 text-center text-gray-600">映画データはありません</p>
         @endforelse
     </div>
-
+ 
     {{-- ページネーション --}}
     <div class="mt-8">
         {{ $movies->appends(['keyword' => request('keyword')])->links() }}
