@@ -8,7 +8,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\User\MovieController as UserMovieController;
-use App\Http\Controllers\User\ReviewController as UserReviewController;
 use App\Models\Movie;
 
 
@@ -66,22 +65,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     // 管理者ログアウト
     Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
-// ユーザーのダッシュボード（ログイン・メール認証済み）                                                             
-  Route::get('/dashboard', function () {                                                                              
-      try {                                                                                                           
-          $movies = \App\Models\Movie::latest()->take(6)->get();                                                      
-          // 映画ランキング（評価順）を取得                                                                           
-          $topRatedMovies = \App\Models\Movie::whereNotNull('rating')                                                 
-                                            ->orderBy('rating', 'desc')                                               
-                                            ->take(5)                                                                 
-                                            ->get();                                                                  
-      } catch (\Exception $e) {                                                                                       
-          // テーブルが存在しない場合は空のコレクションを返す                                                         
-          $movies = collect([]);                                                                                      
-          $topRatedMovies = collect([]);                                                                              
-      }                                                                                                               
-      return view('dashboard', compact('movies', 'topRatedMovies'));                                                  
-  })->middleware(['auth', 'verified'])->name('dashboard');               
 
 // Breeze / Jetstream の認証ルート
 require __DIR__.'/auth.php';
