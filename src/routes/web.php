@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\User\MovieController as UserMovieController;
 use App\Models\Movie;
 use App\Http\Controllers\User\ReviewController as UserReviewController;
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
  
 // トップページ（公開）
 Route::get('/', function () {
@@ -62,21 +63,21 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::put('/movie/{id}', [MovieController::class, 'update'])->name('admin.movie.update');
     Route::delete('/movie/{id}', [MovieController::class, 'destroy'])->name('admin.movie.destroy');
  
+    // 追加：管理者用レビュー削除ルート
+    Route::delete('/reviews/{review}', [AdminReviewController::class, 'destroy'])->name('admin.reviews.destroy');
     // 管理者ログアウト
     Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
-
+ 
     Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/reviews', [UserReviewController::class, 'store'])->name('reviews.store');
     Route::get('/reviews/{review}/edit', [UserReviewController::class, 'edit'])->name('reviews.edit');
-
+ 
     // レビュー更新
     Route::put('/reviews/{review}', [UserReviewController::class, 'update'])->name('reviews.update');
-
+ 
     // レビュー削除
     Route::delete('/reviews/{review}', [UserReviewController::class, 'destroy'])->name('reviews.destroy');
 });
- 
 // Breeze / Jetstream の認証ルート
 require __DIR__.'/auth.php';
- 
