@@ -16,12 +16,7 @@
         </div>
 
         <div>
-            <label class="block font-semibold mb-1">画像ファイル</label>
-            <input type="file" name="image" class="w-full border rounded p-2">
-        </div>
-
-        <div>
-            <label class="block font-semibold mb-1">概要</label>
+            <label class="block font-semibold mb-1">あらすじ</label>
             <textarea name="summary" rows="4" class="w-full border rounded p-2">{{ old('summary', $movie->summary) }}</textarea>
         </div>
 
@@ -33,6 +28,11 @@
         <div>
             <label class="block font-semibold mb-1">公式サイトURL</label>
             <input type="url" name="official_url" value="{{ old('official_url', $movie->official_url) }}" class="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">画像ファイル</label>
+            <input type="file" name="image" class="w-full border rounded p-2">
         </div>
 
         <div class="mt-4">
