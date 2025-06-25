@@ -15,8 +15,28 @@
 
             {{-- 右：詳細 --}}
             <div class="md:w-2/3 flex flex-col">
-                <h1 class="text-3xl font-bold mb-4">{{ $movie->title }}</h1>
+                <h1 class="text-3xl font-bold mb-4">
+                    {{ $movie->title }}
+                </h1>
 
+                <form method="POST" action="{{ route('movies.favorite.toggle', $movie) }}" class="ml-4">
+        @csrf
+        <button type="submit" class="text-3xl focus:outline-none transition-transform duration-200 hover:scale-110">
+            @if(auth()->user()->favoriteMovies->contains($movie))
+                <!-- 塗りつぶしの赤いハート -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-red-500 hover:text-red-600 transition" fill="currentColor" viewBox="0 0 20 20">
+                   <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
+                </svg>
+            @else
+                <!-- 枠だけのグレーハート -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-gray-400 hover:text-red-400 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4.318 6.318a4.5 4.5 0 010 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+            @endif
+        </button>
+    </form>
+  
                 {{-- 評価 --}}
                 <div class="flex items-center space-x-2 mb-4">
                     @for($i = 1; $i <= 5; $i++)

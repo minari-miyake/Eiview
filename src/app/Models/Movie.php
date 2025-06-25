@@ -20,4 +20,9 @@ class Movie extends Model
     {
         return $this->reviews()->avg('rating');
     }
+
+    public function favoritedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
+    }
 }
