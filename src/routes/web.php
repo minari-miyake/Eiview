@@ -54,19 +54,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 // 認証済みユーザーのルート
 Route::middleware(['auth', 'verified'])->group(function () {
     // ユーザーダッシュボード（上位映画表示）
-    Route::get('/dashboard', function () {
-        try {
-            $movies = \App\Models\Movie::latest()->take(6)->get();
-            $topRatedMovies = \App\Models\Movie::whereNotNull('rating')
-                                              ->orderBy('rating', 'desc')
-                                              ->take(5)
-                                              ->get();
-        } catch (\Exception $e) {
-            $movies = collect([]);
-            $topRatedMovies = collect([]);
-        }
-        return view('dashboard', compact('movies', 'topRatedMovies'));
-    })->name('dashboard');
+    Route::get('/dashboard', [UserMovieController::class, 'topRated'])->name('dashboard');
 
     // プロフィール
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
@@ -91,6 +79,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // 自分のレビュー履歴
     Route::get('/my-reviews', [ReviewHistoryController::class, 'index'])->name('my.reviews');
 });
-
-// Breeze / Jetstream の認証ルート
-require __DIR__.'/auth.php';
