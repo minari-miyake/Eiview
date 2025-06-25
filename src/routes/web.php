@@ -53,15 +53,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
 // 認証済みユーザーのルート
 Route::middleware(['auth', 'verified'])->group(function () {
-    // ダッシュボード
-    Route::get('/dashboard', function () {
-        try {
-            $movies = Movie::latest()->take(6)->get();
-        } catch (\Exception $e) {
-            $movies = collect([]);
-        }
-        return view('dashboard', compact('movies'));
-    })->name('dashboard');
+    // ユーザーダッシュボード（上位映画表示）
+    Route::get('/dashboard', [UserMovieController::class, 'topRated'])->name('dashboard');
 
     // プロフィール
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
@@ -73,19 +66,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/movies', [UserMovieController::class, 'index'])->name('movies.index');
     Route::get('/movies/{id}', [UserMovieController::class, 'show'])->name('movies.show');
 
-    // お気に入り登録・解除（トグル）
+    // お気に入り登録・解除
     Route::post('/movies/{movie}/favorite', [FavoriteController::class, 'toggle'])->name('movies.favorite.toggle');
-
-    // お気に入り映画一覧（任意で使う）
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('movies.favorites');
 
-    // レビュー投稿・編集・削除
+    // レビュー関連
     Route::post('/reviews', [UserReviewController::class, 'store'])->name('reviews.store');
     Route::get('/reviews/{review}/edit', [UserReviewController::class, 'edit'])->name('reviews.edit');
     Route::put('/reviews/{review}', [UserReviewController::class, 'update'])->name('reviews.update');
     Route::delete('/reviews/{review}', [UserReviewController::class, 'destroy'])->name('reviews.destroy');
 
-    // レビュー履歴一覧
+    // 自分のレビュー履歴
     Route::get('/my-reviews', [ReviewHistoryController::class, 'index'])->name('my.reviews');
 });
 
