@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class FavoriteController extends Controller
 {
@@ -24,8 +25,18 @@ class FavoriteController extends Controller
     // お気に入り一覧表示
     public function index()
     {
-        $user = auth()->user();
-        $favoriteMovies = $user->favoriteMovies()->paginate(20);
+        try {
+            $user = auth()->user();
+            $favoriteMovies = $user->favoriteMovies()->paginate(20);
+        } catch (\Exception $e) {
+            $favoriteMovies = new LengthAwarePaginator(
+                collect([]), // 空のコレクション
+                0, // 総件数
+                20, // 1ページあたりの件数
+                1, // 現在のページ
+                ['path' => request()->url(), 'pageName' => 'page']
+            );
+        }
 
         return view('movies.favorites', compact('favoriteMovies'));
     }
