@@ -9,7 +9,24 @@ class Movie extends Model
 {
     use HasFactory; // これを追加
 
-    protected $fillable = ['title','summary','image_url','director', 'official_url'];
+    protected $fillable = [
+        'title',
+        'summary',
+        'image_url',
+        'director',
+        'official_url',
+        'description',
+        'release_date',
+        'genre',
+        'poster_url',
+        'rating',
+        'duration',
+    ];
+
+    protected $casts = [
+        'release_date' => 'date',
+        'rating' => 'decimal:1',
+    ];
 
     public function reviews()
     {
@@ -18,7 +35,13 @@ class Movie extends Model
 
     public function averageRating()
     {
-        return $this->reviews()->avg('rating');
+        return $this->reviews()->avg('rating') ?? $this->rating ?? 0;
+    }
+
+    // レビュー数を取得
+    public function reviewCount()
+    {
+        return $this->reviews()->count();
     }
 
     public function favoritedByUsers()

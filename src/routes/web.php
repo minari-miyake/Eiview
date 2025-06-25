@@ -54,7 +54,19 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 // 認証済みユーザーのルート
 Route::middleware(['auth', 'verified'])->group(function () {
     // ユーザーダッシュボード（上位映画表示）
-    Route::get('/dashboard', [UserMovieController::class, 'topRated'])->name('dashboard');
+    Route::get('/dashboard', function () {
+        try {
+            $movies = \App\Models\Movie::latest()->take(6)->get();
+            $topRatedMovies = \App\Models\Movie::whereNotNull('rating')
+                                              ->orderBy('rating', 'desc')
+                                              ->take(5)
+                                              ->get();
+        } catch (\Exception $e) {
+            $movies = collect([]);
+            $topRatedMovies = collect([]);
+        }
+        return view('dashboard', compact('movies', 'topRatedMovies'));
+    })->name('dashboard');
 
     // プロフィール
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');

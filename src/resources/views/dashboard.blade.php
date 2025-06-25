@@ -231,7 +231,7 @@
                         <span class="bg-gradient-to-r from-blue-500 to-purple-600 w-1 h-6 rounded-full mr-3"></span>
                         クイックアクション
                     </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <a href="{{ route('search') }}" class="group bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl hover:from-blue-100 hover:to-blue-200 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg border border-blue-200">
                             <div class="flex items-center justify-between mb-3">
                                 <div class="bg-blue-500 p-3 rounded-xl group-hover:scale-110 transition-transform duration-300">
@@ -262,31 +262,20 @@
                             <p class="text-green-700 text-sm">あなたの情報を確認・編集</p>
                         </a>
                         
-                        <div class="group bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border border-purple-200 opacity-60">
+                        <a href="{{ route('movies.favorites') }}" class="group bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl hover:from-purple-100 hover:to-purple-200 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg border border-purple-200">
                             <div class="flex items-center justify-between mb-3">
-                                <div class="bg-purple-400 p-3 rounded-xl">
+                                <div class="bg-purple-500 p-3 rounded-xl group-hover:scale-110 transition-transform duration-300">
                                     <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                                     </svg>
                                 </div>
-                                <span class="bg-purple-200 text-purple-700 text-xs px-2 py-1 rounded-full font-medium">準備中</span>
+                                <svg class="h-5 w-5 text-purple-400 group-hover:text-purple-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
                             </div>
-                            <h4 class="text-purple-900 font-bold text-lg mb-1">レビューを書く</h4>
-                            <p class="text-purple-700 text-sm">映画の感想をシェア</p>
-                        </div>
-                        
-                        <div class="group bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border border-orange-200 opacity-60">
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="bg-orange-400 p-3 rounded-xl">
-                                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                                    </svg>
-                                </div>
-                                <span class="bg-orange-200 text-orange-700 text-xs px-2 py-1 rounded-full font-medium">準備中</span>
-                            </div>
-                            <h4 class="text-orange-900 font-bold text-lg mb-1">統計を見る</h4>
-                            <p class="text-orange-700 text-sm">あなたの活動データ</p>
-                        </div>
+                            <h4 class="text-purple-900 font-bold text-lg mb-1">お気に入り一覧</h4>
+                            <p class="text-purple-700 text-sm">お気に入りの映画を確認</p>
+                        </a>
                     </div>
                 </div>
             </div>
