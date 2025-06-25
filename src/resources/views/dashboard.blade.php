@@ -79,14 +79,92 @@
                                     </div>
                                 @endforeach
                             </div>
-                        @else
-                            <div class="text-center py-8 bg-white bg-opacity-10 rounded-lg">
-                                <svg class="mx-auto h-12 w-12 text-white text-opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4z"></path>
-                                </svg>
-                                <p class="mt-2 text-sm text-blue-100">映画データがありません</p>
-                                <p class="text-sm text-blue-200">管理者によって映画が追加されるまでお待ちください</p>
+                       @else
+    <!-- 映画ランキングを表示 -->
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-6 border border-blue-400 bg-blue-100">
+        <div class="p-8">
+            <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                <span class="bg-gradient-to-r from-yellow-500 to-orange-600 w-1 h-6 rounded-full mr-3"></span>
+                映画ランキング TOP5
+            </h3>
+
+            @if(isset($topRatedMovies) && $topRatedMovies->count() > 0)
+                <div class="space-y-4">
+                    @foreach(array_slice($topRatedMovies->all(), 0, 5) as $index => $movie)
+                        <div class="flex items-center p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl hover:from-gray-100 hover:to-gray-200 transition-all duration-300">
+                            <!-- ランキング番号 -->
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white
+                                    {{ $index === 0 ? 'bg-gradient-to-r from-yellow-400 to-yellow-600' : '' }}
+                                    {{ $index === 1 ? 'bg-gradient-to-r from-gray-400 to-gray-600' : '' }}
+                                    {{ $index === 2 ? 'bg-gradient-to-r from-orange-400 to-orange-600' : '' }}
+                                    {{ $index >= 3 ? 'bg-gradient-to-r from-blue-400 to-blue-600' : '' }}">
+                                    {{ $index + 1 }}
+                                </div>
                             </div>
+
+                            <!-- 映画ポスター -->
+<div class="flex-shrink-0 mr-4">
+    <div class="w-16 h-24 bg-gray-200 rounded-lg overflow-hidden">
+        @if($movie->image_url)
+            <img src="{{ asset($movie->image_url) }}" alt="{{ $movie->title }}" class="w-full h-full object-cover">
+        @else
+            <div class="w-full h-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4z"/>
+                </svg>
+            </div>
+        @endif
+    </div>
+</div>
+
+
+                            <!-- 映画情報 -->
+                            <div class="flex-1">
+                                <h4 class="font-bold text-xl text-gray-900 mb-1">{{ $movie->title }}</h4>
+                                <p class="text-sm text-gray-600 mb-1">{{ $movie->genre }}</p>
+                                @if($movie->director)
+                                    <p class="text-xs text-gray-500">監督: {{ $movie->director }}</p>
+                                @endif
+                            </div>
+
+                            <!-- 評価 -->
+                            <div class="flex-shrink-0 text-right">
+                                <div class="flex items-center space-x-2 mb-1 justify-end">
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <svg class="w-5 h-5 {{ $i <= round($movie->averageRating()) ? 'text-yellow-400' : 'text-gray-300' }}"
+                                             fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.965h4.175c.969 0 1.371 1.24.588 1.81l-3.381 2.455 1.287 3.965c.3.921-.755 1.688-1.539 1.118L10 13.348l-3.381 2.455c-.784.57-1.838-.197-1.539-1.118l1.287-3.965L3.018 8.702c-.783-.57-.38-1.81.588-1.81h4.175L9.049 2.927z"/>
+                                        </svg>
+                                    @endfor
+                                    <span class="text-sm font-semibold text-gray-700">
+                                        {{ number_format($movie->averageRating(), 1) }}
+                                    </span>
+                                </div>
+
+                                @if($movie->release_date)
+                                    <p class="text-xs text-gray-500">{{ $movie->release_date->format('Y年') }}</p>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="mt-6 text-center">
+                    <a href="{{ route('search') }}" class="inline-flex items-center bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-6 py-3 rounded-xl font-medium hover:from-yellow-600 hover:to-orange-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        すべての映画を見る
+                    </a>
+                </div>
+            @else
+                <p class="text-gray-500 text-center">評価付き映画がまだ登録されていません。</p>
+            @endif
+        </div>
+    </div>
                         @endif
                     </div>
                 </div>
@@ -201,98 +279,5 @@
                     </div>
                 </div>
             </div>
-
-           <!-- 映画ランキング -->
-<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-    <div class="p-8">
-        <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-            <span class="bg-gradient-to-r from-yellow-500 to-orange-600 w-1 h-6 rounded-full mr-3"></span>
-            映画ランキング TOP5
-        </h3>
-
-        @if(isset($topRatedMovies) && $topRatedMovies->count() > 0)
-            <div class="space-y-4">
-                @foreach(array_slice($topRatedMovies->all(), 0, 5) as $index => $movie)
-                    <div class="flex items-center p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl hover:from-gray-100 hover:to-gray-200 transition-all duration-300">
-                        <!-- ランキング番号 -->
-                        <div class="flex-shrink-0 mr-4">
-                            <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white
-                                {{ $index === 0 ? 'bg-gradient-to-r from-yellow-400 to-yellow-600' : '' }}
-                                {{ $index === 1 ? 'bg-gradient-to-r from-gray-400 to-gray-600' : '' }}
-                                {{ $index === 2 ? 'bg-gradient-to-r from-orange-400 to-orange-600' : '' }}
-                                {{ $index >= 3 ? 'bg-gradient-to-r from-blue-400 to-blue-600' : '' }}">
-                                {{ $index + 1 }}
-                            </div>
-                        </div>
-
-                        <!-- 映画ポスター -->
-                        <div class="flex-shrink-0 mr-4">
-                            <div class="w-16 h-24 bg-gray-200 rounded-lg overflow-hidden">
-                                @if($movie->poster_url)
-                                    <img src="{{ $movie->poster_url }}" alt="{{ $movie->title }}" class="w-full h-full object-cover">
-                                @else
-                                    <div class="w-full h-full flex items-center justify-center">
-                                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                  d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4z"/>
-                                        </svg>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- 映画情報 -->
-                        <div class="flex-1">
-                            <h4 class="font-bold text-lg text-gray-900 mb-1">{{ $movie->title }}</h4>
-                            <p class="text-sm text-gray-600 mb-1">{{ $movie->genre }}</p>
-                            @if($movie->director)
-                                <p class="text-xs text-gray-500">監督: {{ $movie->director }}</p>
-                            @endif
-                        </div>
-
-                        <!-- 評価 -->
-                        <div class="flex-shrink-0 text-right">
-                            <div class="flex items-center space-x-2 mb-1 justify-end">
-                                @for($i = 1; $i <= 5; $i++)
-                                    <svg class="w-5 h-5 {{ $i <= round($movie->averageRating() ?: $movie->rating ?: 0) ? 'text-yellow-400' : 'text-gray-300' }}"
-                                         fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.965h4.175c.969 0 1.371 1.24.588 1.81l-3.381 2.455 1.287 3.965c.3.921-.755 1.688-1.539 1.118L10 13.348l-3.381 2.455c-.784.57-1.838-.197-1.539-1.118l1.287-3.965L3.018 8.702c-.783-.57-.38-1.81.588-1.81h4.175L9.049 2.927z"/>
-                                    </svg>
-                                @endfor
-                                <span class="text-sm font-semibold text-gray-700">
-                                    {{ number_format($movie->averageRating() ?: $movie->rating ?: 0, 1) }}
-                                </span>
-                            </div>
-
-                            @if($movie->release_date)
-                                <p class="text-xs text-gray-500">{{ $movie->release_date->format('Y年') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            <div class="mt-6 text-center">
-                <a href="{{ route('search') }}" class="inline-flex items-center bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-6 py-3 rounded-xl font-medium hover:from-yellow-600 hover:to-orange-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                    </svg>
-                    すべての映画を見る
-                </a>
-            </div>
-        @else
-            <div class="text-center py-12">
-                <div class="bg-gradient-to-br from-gray-100 to-gray-200 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                    </svg>
-                </div>
-                <h4 class="text-xl font-bold text-gray-900 mb-2">映画ランキングデータがありません</h4>
-                <p class="text-gray-600">評価付きの映画が登録されていません。</p>
-            </div>
-        @endif
-    </div>
-</div>                                   
+                               
 </x-app-layout>
