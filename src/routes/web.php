@@ -11,6 +11,7 @@ use App\Http\Controllers\User\MovieController as UserMovieController;
 use App\Http\Controllers\User\ReviewController as UserReviewController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\User\ReviewHistoryController;
 use App\Models\Movie;
 
 // トップページ（公開）
@@ -83,6 +84,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/reviews/{review}/edit', [UserReviewController::class, 'edit'])->name('reviews.edit');
     Route::put('/reviews/{review}', [UserReviewController::class, 'update'])->name('reviews.update');
     Route::delete('/reviews/{review}', [UserReviewController::class, 'destroy'])->name('reviews.destroy');
+
+    // レビュー履歴一覧
+    Route::get('/my-reviews', [ReviewHistoryController::class, 'index'])->name('my.reviews');
 });
 
 // Breeze / Jetstream の認証ルート
