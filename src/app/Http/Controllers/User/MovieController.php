@@ -29,5 +29,17 @@ class MovieController extends Controller
         $movie = Movie::with('reviews.user')->findOrFail($id); // レビュー情報も一緒に取得
         return view('movies.show', compact('movie'));
     }
+
+     public function topRated()
+    {
+        // 全映画を取得して平均ratingで並び替え（レビュー付きのみ）
+        $topRatedMovies = Movie::with('reviews')
+            ->get()
+            ->filter(fn($movie) => $movie->reviews->count() > 0)
+            ->sortByDesc(fn($movie) => $movie->averageRating())
+            ->take(5);
+
+        return view('dashboard', compact('topRatedMovies'));
+    }
 }
 
