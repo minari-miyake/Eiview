@@ -230,8 +230,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                             </div>
-                            <h4 class="text-blue-900 font-bold text-lg mb-1">映画を検索</h4>
-                            <p class="text-blue-700 text-sm">お気に入りの映画を見つけよう</p>
+                            <h4 class="text-blue-900 font-bold text-lg mb-1">映画一覧へ</h4>
+                            <p class="text-blue-700 text-sm">お気に入りの映画を見つけよう！</p>
                         </a>
                         
                         <a href="{{ route('profile.show') }}" class="group bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl hover:from-green-100 hover:to-green-200 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg border border-green-200">
@@ -260,8 +260,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                             </div>
-                            <h4 class="text-purple-900 font-bold text-lg mb-1">お気に入り一覧</h4>
-                            <p class="text-purple-700 text-sm">お気に入りの映画を確認</p>
+                            <h4 class="text-purple-900 font-bold text-lg mb-1">お気に入り映画一覧</h4>
+                            <p class="text-purple-700 text-sm">お気に入りの映画を確認しよう</p>
                         </a>
                     </div>
                 </div>
