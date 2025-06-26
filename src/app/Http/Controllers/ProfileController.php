@@ -19,15 +19,26 @@ class ProfileController extends Controller
     {   
          $user = $request->user();
          
-         $recentReviews = Review::with('movie')
-        ->where('user_id', $user->id)
-        ->orderBy('created_at', 'desc')
-        ->limit(5)
-        ->get();
+         try {
+             $recentReviews = Review::with('movie')
+                ->where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->limit(5)
+                ->get();
+                
+             $favoriteMovies = $user->favoriteMovies()
+                ->orderBy('favorites.created_at', 'desc')
+                ->limit(6)
+                ->get();
+         } catch (\Exception $e) {
+             $recentReviews = collect([]);
+             $favoriteMovies = collect([]);
+         }
 
         return view('profile.show', [
-        'user' => $user,
-        'recentReviews' => $recentReviews,
+            'user' => $user,
+            'recentReviews' => $recentReviews,
+            'favoriteMovies' => $favoriteMovies,
         ]);
     }
 
