@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Review extends Model
 {
@@ -30,4 +31,20 @@ class Review extends Model
     {
         return $this->belongsTo(User::class);
     }
+    // Review.php
+    public function likedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'review_likes')->withTimestamps();
+    }
+
+    public function likesCount()
+    {
+        return $this->likedByUsers()->count();
+    }
+
+    public function isLikedBy(User $user): bool
+    {
+        return $this->likedByUsers()->where('user_id', $user->id)->exists();
+    }
+
 }

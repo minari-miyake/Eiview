@@ -31,10 +31,18 @@
       </a>
 
       <a href="{{ route('my.reviews') }}"
-          class="relative inline-block text-sm font-semibold px-6 py-2 rounded-xl bg-gradient-to-tr from-blue-100 to-blue-50
+         class="relative inline-block text-sm font-semibold px-6 py-2 rounded-xl bg-gradient-to-tr from-blue-100 to-blue-50
                 text-blue-800 shadow-md border border-blue-200 hover:from-blue-200 hover:to-blue-100 hover:text-blue-900
                 transition duration-300 ease-in-out transform hover:-translate-y-0.5 active:translate-y-0">
         マイレビュー一覧
+      </a>
+
+      <!-- ⭐️ 追加：いいねレビュー一覧 -->
+      <a href="{{ route('reviews.likes') }}"
+        class="relative inline-block text-sm font-semibold px-6 py-2 rounded-xl bg-gradient-to-tr from-blue-100 to-blue-50
+              text-blue-800 shadow-md border border-blue-200 hover:from-blue-200 hover:to-blue-100 hover:text-blue-900
+              transition duration-300 ease-in-out transform hover:-translate-y-0.5 active:translate-y-0">
+        いいねしたレビュー
       </a>
     </div>
 
