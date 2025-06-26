@@ -219,7 +219,7 @@
                         クイックアクション
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <a href="{{ route('search') }}" class="group bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl hover:from-blue-100 hover:to-blue-200 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg border border-blue-200">
+                        <a href="{{ route('movies.index') }}" class="group bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl hover:from-blue-100 hover:to-blue-200 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg border border-blue-200">
                             <div class="flex items-center justify-between mb-3">
                                 <div class="bg-blue-500 p-3 rounded-xl group-hover:scale-110 transition-transform duration-300">
                                     <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
