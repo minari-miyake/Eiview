@@ -1,4 +1,4 @@
-<x-app-layout> //ユーザ側のログイン後ダッシュボード
+<x-app-layout> 
    
 
     <div class="py-12">
@@ -17,20 +17,12 @@
                             </h3>
                             <p class="text-blue-100 text-lg">Eiview で映画の魅力を発見し、感動を共有しましょう</p>
                         </div>
-                        <div class="hidden md:block">
-                            <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4z"></path>
-                                </svg>
-                            </div>
-                        </div>
                     </div>
                     
                     <!-- 映画一覧セクション -->
                     <div class="mt-6">
                         <div class="flex justify-between items-center mb-4">
-                            <h4 class="text-xl font-bold text-white">映画一覧</h4>
-                            <a href="{{ route('movies.index') }}" class="text-blue-100 hover:text-white font-medium transition-colors">すべて見る</a>
+                            <h4 class="text-2xl font-bold text-white">🍿映画ランキングTOP5</h4>
                         </div>
                         
                         @if(isset($movies) && $movies->count() > 0)
@@ -81,12 +73,8 @@
                             </div>
                        @else
     <!-- 映画ランキングを表示 -->
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-6 border border-blue-400 bg-blue-100">
+    <div class="bg-sky-100 overflow-hidden shadow-sm sm:rounded-lg mt-6 border border-blue-400">
         <div class="p-8">
-            <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <span class="bg-gradient-to-r from-yellow-500 to-orange-600 w-1 h-6 rounded-full mr-3"></span>
-                映画ランキング TOP5
-            </h3>
 
             @if(isset($topRatedMovies) && $topRatedMovies->count() > 0)
                 <div class="space-y-4">
@@ -152,7 +140,7 @@
                 </div>
 
                 <div class="mt-6 text-center">
-                    <a href="{{ route('search') }}" class="inline-flex items-center bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-6 py-3 rounded-xl font-medium hover:from-yellow-600 hover:to-orange-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                    <a href="{{ route('movies.index') }}" class="inline-flex items-center bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-6 py-3 rounded-xl font-medium hover:from-yellow-600 hover:to-orange-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
