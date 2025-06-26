@@ -43,7 +43,7 @@ class MovieController extends Controller
     {
         $validated = $request->validate([
             'title'        => 'required|string|max:255',
-            'summary'      => 'nullable|string',
+            'summary'      => 'nullable|string|max:1000',
             'image'        => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'director'     => 'nullable|string|max:255',
             'official_url' => 'nullable|url|max:255',
@@ -77,7 +77,7 @@ class MovieController extends Controller
     {
         $validated = $request->validate([
             'title'        => 'required|string|max:255',
-            'summary'      => 'nullable|string',
+            'summary'      => 'nullable|string|max:1000',
             'image'        => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'director'     => 'nullable|string|max:255',
             'official_url' => 'nullable|url|max:255',
@@ -91,7 +91,7 @@ class MovieController extends Controller
         }
 
         $movie->title        = $validated['title'];
-        $movie->summary      = $validated['summary'] ?? '';
+        $movie->summary      = $validated['summary'] ?? null;
         $movie->director     = $validated['director'] ?? null;
         $movie->official_url = $validated['official_url'] ?? null;
         $movie->save();
