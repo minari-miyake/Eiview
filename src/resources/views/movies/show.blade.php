@@ -92,7 +92,7 @@
             {{-- レビューリスト --}}
             <div id="review-list" class="space-y-6">
                 @forelse ($movie->reviews->sortByDesc('created_at') as $review)
-                    <div class="review-item bg-white border border-gray-200 rounded-lg shadow p-6" data-review-id="{{ $review->id }}">
+                    <div class="review-item relative bg-white border border-gray-200 rounded-lg shadow p-6" data-review-id="{{ $review->id }}">
                         <div class="flex items-start justify-between mb-3">
                             <div class="flex items-center space-x-4">
                                 <img src="{{ $review->user->icon_url ?? asset('default-icon.png') }}" alt="{{ $review->user->name }}のアイコン"
@@ -141,13 +141,13 @@
                         </p>
 
                         {{-- いいねボタン --}}
-                       <form action="{{ $review->isLikedBy(auth()->user()) ? route('reviews.unlike', $review->id) : route('reviews.like', $review->id) }}" method="POST" class="inline">
+                       <form action="{{ $review->isLikedBy(auth()->user()) ? route('reviews.unlike', $review->id) : route('reviews.like', $review->id) }}" method="POST" class="absolute right-4 bottom-4">
     @csrf
     @if($review->isLikedBy(auth()->user()))
         @method('DELETE')
     @endif
     <button type="submit" class="flex items-center space-x-1 text-gray-600 hover:text-red-500 transition">
-        <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg class="w-6 h-6 {{ $review->isLikedBy(auth()->user()) ? 'fill-pink-500' : 'fill-white stroke-current text-gray-400' }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 
             7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 
             5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
