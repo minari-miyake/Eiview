@@ -47,15 +47,24 @@ class MovieController extends Controller
     }
 
      public function topRated()
-    {
-        // 全映画を取得して平均ratingで並び替え（レビュー付きのみ）
-        $topRatedMovies = Movie::with('reviews')
-            ->get()
-            ->filter(fn($movie) => $movie->reviews->count() > 0)
-            ->sortByDesc(fn($movie) => $movie->averageRating())
-            ->take(5);
+{
+    $topRatedMovies = Movie::with('reviews')
+        ->get()
+        ->filter(fn($movie) => $movie->reviews->count() > 0)
+        ->sortByDesc(fn($movie) => $movie->averageRating())
+        ->take(5);
 
-        return view('dashboard', compact('topRatedMovies'));
-    }
+    $user = auth()->user();
+        $favoriteCount = $user ? $user->favoriteMovies()->count() : 0; 
+
+    $reviewCount = $user ? $user->reviews()->count() : 0;
+
+    return view('dashboard', [
+        'topRatedMovies' => $topRatedMovies,
+        'reviewCount' => $reviewCount,
+         'favoriteCount' => $favoriteCount,
+    ]);
+}
+
 }
 
