@@ -18,7 +18,7 @@ class ReviewController extends Controller
             'movie_id' => 'required|exists:movies,id',
             'rating'   => 'required|integer|min:1|max:5',
             'title'    => 'nullable|string|max:255',
-            'comment'  => 'required|string|max:200',
+            'comment'  => 'required|string|max:255',
         ]);
 
         $userId = Auth::id();
@@ -66,7 +66,7 @@ class ReviewController extends Controller
         $validated = $request->validate([
             'rating'  => 'required|integer|min:1|max:5',
             'title'   => 'nullable|string|max:255',
-            'comment' => 'required|string|max:200',
+            'comment' => 'required|string|max:255',
         ]);
 
         $review->update([
