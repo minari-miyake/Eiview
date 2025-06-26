@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Eiview - 映画館レビュー</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="{{ asset('eiview_logo.jpg') }}">
+  <link rel="shortcut icon" type="image/jpeg" href="{{ asset('eiview_logo.jpg') }}">
+  <link rel="apple-touch-icon" href="{{ asset('eiview_logo.jpg') }}">
+  
   @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
