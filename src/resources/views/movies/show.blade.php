@@ -51,16 +51,19 @@
                 {{-- あらすじ --}}
                 <h2 class="text-lg font-semibold mb-2">あらすじ</h2>
                 @if($movie->summary)
-                    <p class="text-sm text-gray-700 mb-4 whitespace-pre-line">{{ $movie->summary }}</p>
+                   <p class="text-sm text-gray-700 mb-4 whitespace-pre-wrap break-words">
+                      {{ $movie->summary }}
+                   </p>
                 @else
-                    <p class="text-sm text-gray-500 italic mb-4">あらすじは未登録です。</p>
+                   <p class="text-sm text-gray-500 italic mb-4">あらすじは未登録です。</p>
                 @endif
 
                 {{-- 出演者 --}}
                 <h2 class="text-lg font-semibold mb-2">出演者</h2>
-                <p class="text-sm text-gray-700 mb-4">
+                <p class="text-sm text-gray-700 mb-4 whitespace-pre-wrap break-words">
                     {{ $movie->director ?? '出演者情報は未登録です。' }}
                 </p>
+
 
                 {{-- 公式サイト --}}
                 <h2 class="text-lg font-semibold mb-2">公式サイト</h2>
@@ -134,9 +137,12 @@
                         </div>
 
                         @if ($review->title)
-                            <div class="text-lg font-semibold text-gray-900 mb-1 leading-tight">{{ $review->title }}</div>
+                            <div class="text-lg font-semibold text-gray-900 mb-1 leading-tight">
+                                {{ $review->title }}
+                            </div>
                         @endif
-                        <p class="text-sm text-gray-800 leading-tight whitespace-pre-line">
+
+                        <p class="text-sm text-gray-800 leading-tight whitespace-pre-wrap break-words">
                             {{ $review->comment ?? '（コメントなし）' }}
                         </p>
 
