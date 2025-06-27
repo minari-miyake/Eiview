@@ -9,14 +9,14 @@
                 @foreach ($reviews as $review)
                     <div class="bg-white border border-gray-200 rounded-lg p-5 shadow">
                         <div class="flex justify-between items-start mb-2">
-                            <div class="flex items-start space-x-3">
+                            <div class="flex items-center space-x-3">
                                 {{-- ユーザーアイコン --}}
                                 <img src="{{ $review->user->icon_url ?? asset('images/default-user-icon.png') }}"
                                      alt="{{ $review->user->name }} さんのアイコン"
-                                     class="w-12 h-12 rounded-full object-cover">
+                                     class="w-10 h-10 rounded-full object-cover">
 
                                 <div>
-                                    <h2 class="text-2xl font-semibold text-blue-800 leading-tight">
+                                    <h2 class="text-xl font-semibold text-blue-800 leading-tight">
                                         <a href="{{ route('movies.show', $review->movie->id) }}" class="hover:underline">
                                             {{ $review->movie->title }}
                                         </a>
@@ -27,27 +27,44 @@
                                 </div>
                             </div>
 
-                            {{-- 星評価 --}}
-                            <div class="flex items-center text-yellow-400 text-base leading-none">
-                                @for ($i = 1; $i <= 5; $i++)
-                                    @if ($i <= $review->rating)
-                                        ★
-                                    @else
-                                        <span class="text-gray-300">★</span>
-                                    @endif
-                                @endfor
-                                <span class="ml-2 text-yellow-600 font-semibold">{{ $review->rating }}</span>
+                            <div>
+                                {{-- 星評価 --}}
+                                <div class="flex items-center text-yellow-400 text-base leading-none">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= $review->rating)
+                                            ★
+                                        @else
+                                            <span class="text-gray-300">★</span>
+                                        @endif
+                                    @endfor
+                                    <span class="ml-2 text-yellow-600 font-semibold">{{ $review->rating }}</span>
+                                </div>
+
+                                {{-- 削除ボタン（星評価の下・右寄せ） --}}
+                                <div class="flex mt-2 text-sm justify-end">
+                                    <form action="{{ route('reviews.destroy', $review->id) }}" method="POST"
+                                          onsubmit="return confirm('本当に削除しますか？');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="text-red-600 hover:underline bg-transparent border-none p-0 m-0 cursor-pointer">
+                                            削除
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
 
                         {{-- レビュータイトル --}}
                         @if ($review->title)
-                            <div class="text-2xl font-bold mb-1 leading-tight">{{ $review->title }}</div>
+                            <div class="text-xl font-bold text-gray-900 mb-2 leading-tight">
+                                {{ $review->title }}
+                            </div>
                         @endif
 
                         {{-- コメント --}}
-                        <p class="text-gray-800 whitespace-pre-line text-lg leading-tight mb-3">
-                            {{ Str::limit($review->comment, 150) ?? '（コメントなし）' }}
+                        <p class="text-gray-800 whitespace-pre-line text-base leading-tight">
+                            {{ $review->comment ?? '（コメントなし）' }}
                         </p>
 
                         {{-- いいね数 --}}
@@ -58,7 +75,6 @@
                 @endforeach
             </div>
 
-            {{-- ページネーション --}}
             <div class="mt-6">
                 {{ $reviews->links() }}
             </div>
