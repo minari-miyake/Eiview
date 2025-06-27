@@ -10,8 +10,7 @@
                     <div class="bg-white border border-gray-200 rounded-lg p-5 shadow">
                         {{-- ユーザーアイコン + タイトル + 投稿日 --}}
                         <div class="flex justify-between items-start mb-2">
-                            <div class="flex items-center space-x-3 max-w-2xl">
-                                {{-- ユーザーアイコン --}}
+                            <div class="flex items-center space-x-3">
                                 <img src="{{ $review->user->icon_url ?? asset('images/default-user-icon.png') }}"
                                      alt="{{ $review->user->name }} さんのアイコン"
                                      class="w-10 h-10 rounded-full object-cover">
@@ -28,28 +27,23 @@
                                 </div>
                             </div>
 
-                            {{-- 星評価（5つの★で表現 + 数字） --}}
-                            <div class="flex items-center text-yellow-400 text-base leading-none">
-                                @for ($i = 1; $i <= 5; $i++)
-                                    @if ($i <= $review->rating)
-                                        ★
-                                    @else
-                                        <span class="text-gray-300">★</span>
-                                    @endif
-                                @endfor
-                                <span class="ml-2 text-yellow-600 font-semibold">{{ $review->rating }}</span>
-                            </div>
-                        </div>
+                            <div>
+                                {{-- 星評価 --}}
+                                <div class="flex items-center text-yellow-400 text-base leading-none">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= $review->rating)
+                                            ★
+                                        @else
+                                            <span class="text-gray-300">★</span>
+                                        @endif
+                                    @endfor
+                                    <span class="ml-2 text-yellow-600 font-semibold">{{ $review->rating }}</span>
+                                </div>
 
-                        {{-- レビュータイトル --}}
-                        @if ($review->title)
-                            <div class="text-xl font-bold mb-1 leading-tight max-w-2xl mx-auto flex justify-between items-center">
-                                <span>{{ $review->title }}</span>
-
-                                {{-- 編集・削除ボタン（右寄せボタン風） --}}
-                                <div class="flex space-x-3">
+                                {{-- 編集・削除ボタン（星評価の下・右寄せ） --}}
+                                <div class="flex space-x-4 mt-2 text-sm justify-end">
                                     <a href="{{ route('reviews.edit', $review->id) }}"
-                                       class="px-4 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm font-medium transition">
+                                       class="text-blue-600 hover:underline">
                                         編集
                                     </a>
 
@@ -58,16 +52,23 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
-                                                class="px-4 py-1 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm font-medium transition">
+                                                class="text-red-600 hover:underline bg-transparent border-none p-0 m-0 cursor-pointer">
                                             削除
                                         </button>
                                     </form>
                                 </div>
                             </div>
+                        </div>
+
+                        {{-- レビュータイトル --}}
+                        @if ($review->title)
+                            <div class="text-xl font-bold text-gray-900 mb-2">
+                                {{ $review->title }}
+                            </div>
                         @endif
 
                         {{-- コメント --}}
-                        <p class="text-gray-800 whitespace-pre-line text-base leading-tight max-w-2xl mx-auto mb-3">
+                        <p class="text-gray-800 whitespace-pre-line text-base leading-tight">
                             {{ $review->comment ?? '（コメントなし）' }}
                         </p>
                     </div>
